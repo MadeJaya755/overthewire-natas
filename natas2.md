@@ -15,7 +15,7 @@ Mendapatkan password untuk level 3 di **OverTheWire Natas**.
 4. Jika perlu, gunakan script Python untuk mengakses halaman atau mengekstrak password.
 
 ## ✅ Flag / Password Level 3
-`<isi_password_natas3>`
+`3gqisGdR0pjm6tpkDKdIWO2hSvchLeYH`
 
 ## 💡 Catatan
 - Fokus level ini: belajar **basic authentication dan web parameter**.
