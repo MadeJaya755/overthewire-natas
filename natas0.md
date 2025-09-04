@@ -1,4 +1,4 @@
-# Natas 0 → 1
+# Natas 0
 
 ## 🎯 Tujuan
 Akses halaman Natas level 0 di http://natas0.natas.labs.overthewire.org.
