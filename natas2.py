@@ -3,7 +3,7 @@ from requests.auth import HTTPBasicAuth
 
 # Kredensial Natas 2
 username = 'natas2'
-password = '<password_natas2>'
+password = '3gqisGdR0pjm6tpkDKdIWO2hSvchLeYH'
 url = 'http://natas2.natas.labs.overthewire.org/'
 
 # Request halaman dengan HTTP Basic Auth
