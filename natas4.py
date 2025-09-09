@@ -3,7 +3,7 @@ from requests.auth import HTTPBasicAuth
 
 # Kredensial Natas 3
 username = 'natas3'
-password = '<password_natas3>'
+password = 'QryZXc2e0zahULdHrtHxzyYkj59kUxLQ'
 base_url = 'http://natas3.natas.labs.overthewire.org/'
 
 # Step 1: Cek robots.txt
