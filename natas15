@@ -1,0 +1,20 @@
+Natas 15 → 16
+🎯 Tujuan
+Mendapatkan kata sandi untuk level 16 di OverTheWire Natas.
+
+🔑 Kredensial
+Username: natas15
+
+Password: z3UYcr4v4uBpeX8f7EZbMHlzK4UR2XtQ
+
+URL: http://natas15.natas.labs.overthewire.org
+
+🛠️ Langkah
+Analisis Halaman: Halaman Natas 15 memiliki sebuah input field untuk username. Pesan yang diberikan oleh server adalah "This user exists" atau "This user does not exist", menunjukkan kerentanan Blind SQL Injection. Kita tidak dapat melihat data secara langsung, tetapi dapat menyimpulkan hasilnya dari respons server.
+
+Identifikasi Payload: Kerentanan ini dapat dieksploitasi dengan membuat kueri yang menghasilkan respons benar atau salah untuk setiap karakter kata sandi. Saya menggunakan kombinasi LIKE dan BINARY untuk membandingkan karakter.
+
+Otomatisasi: Mengingat panjang kata sandi yang mungkin dan jumlah karakter yang harus diuji, saya menggunakan skrip Python untuk mengotomatisasi proses ini. Skrip akan menebak kata sandi, karakter per karakter, hingga mendapatkan kata sandi lengkap.
+
+✅ Flag / Password Level 16
+SdqIqBsFcz3yotlNYErZSZwblkm0lrvx
