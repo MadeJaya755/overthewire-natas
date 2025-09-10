@@ -1,25 +1,36 @@
-# Natas 13 → 14
+Tentu, saya akan buatkan dokumentasi untuk penyelesaian Natas 13 dalam format yang sama.
 
-## 🎯 Tujuan
-Mendapatkan password untuk level 14 di **OverTheWire Natas**.
+Natas 13 → 14
+🎯 Tujuan
+Mendapatkan password untuk level 14 di OverTheWire Natas.
 
-## 🔑 Kredensial
-- Username: `natas13`
-- Password: `yZdkjAYZRd3R7tq7T5kXMjMJlOIkzDeB`  # dari level 12
-- URL: [http://natas13.natas.labs.overthewire.org](http://natas13.natas.labs.overthewire.org)
+🔑 Kredensial
+Username: natas13
 
-## 🛠️ Langkah
-1. Halaman mirip level 12, tapi ada filter tambahan:
-   - File harus memiliki header valid seperti **PNG**.
-2. Teknik bypass:
-   - Buat file dengan header PNG (`\x89PNG\r\n\x1a\n`) lalu tambahkan kode PHP setelahnya.
-   - Simpan dengan ekstensi `.php` atau `.php5`.
-3. Upload file ke server.
-4. Akses URL upload → PHP tetap dieksekusi meski diawali header PNG.
-5. Isi file:
-   ```php
-   \x89PNG\r\n\x1a\n
-   <?php system("cat /etc/natas_webpass/natas14"); ?>
-Hasil: password level 14 muncul.
+Password: yZdkjAYZRd3R7tq7T5kXMjMJlOIkzDeB
 
-<trbs5pCjCrkuSknBBKHhaBxq6Wm1j3LC>
+URL: http://natas13.natas.labs.overthewire.org
+
+🛠️ Langkah
+Analisis Celah: Halaman ini memiliki form unggah file yang serupa dengan Natas 12. Namun, kali ini filter validasinya jauh lebih ketat. Server menggunakan fungsi exif_imagetype() yang memeriksa beberapa byte pertama file (magic bytes) untuk memastikan file yang diunggah benar-benar sebuah gambar (seperti JPEG atau GIF).
+
+Membuat Payload Khusus: Saya tidak bisa langsung mengunggah file PHP. Oleh karena itu, saya membuat file yang memiliki magic bytes valid di awal, diikuti dengan kode PHP.
+
+Saya membuat file bernama shell.gif dengan konten berikut. GIF87a adalah magic bytes untuk file GIF.
+
+GIF87a
+<?php system('cat /etc/natas_webpass/natas14'); ?>
+Kode PHP system('cat /etc/natas_webpass/natas14') berfungsi untuk membaca kata sandi level berikutnya.
+
+Unggah dan Eksploitasi:
+
+Saya mengunggah file shell.gif yang sudah saya siapkan. Karena file ini memiliki magic bytes yang valid, validasi exif_imagetype() berhasil dilewati.
+
+Setelah unggahan berhasil, file disimpan di direktori /uploads/.
+
+Saya mengakses file tersebut melalui URL: http://natas13.natas.labs.overthewire.org/uploads/shell.gif.
+
+Server mengeksekusi kode PHP di dalam file GIF, dan kata sandi untuk level 14 pun ditampilkan.
+
+✅ Flag / Password Level 14
+trbs5pCjCrkuSknBBKHhaBxq6Wm1j3LC
