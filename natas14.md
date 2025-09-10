@@ -5,7 +5,7 @@ Mendapatkan kata sandi untuk level 15 di OverTheWire Natas.
 🔑 Kredensial
 Username: natas14
 
-Password: [kata sandi dari level 13]
+Password: trbs5pCjCrkuSknBBKHhaBxq6Wm1j3LC
 
 URL: http://natas14.natas.labs.overthewire.org
 
@@ -46,4 +46,4 @@ Mendapatkan kata sandi:
 
 Setelah mencoba berbagai variasi, akhirnya saya berhasil menemukan kata sandi yang disembunyikan.
 
-[kata sandi untuk Natas 15]
+z3UYcr4v4uBpeX8f7EZbMHlzK4UR2XtQ
