@@ -1,37 +1,33 @@
-Penyelesaian NATAS 12
-Tantangan: Natas 12 adalah tantangan file upload vulnerability yang mengharuskan kita mengunggah file berbahaya untuk mendapatkan kata sandi level berikutnya.
+Natas 12 → 13
+🎯 Tujuan
+Mendapatkan password untuk level 13 di OverTheWire Natas.
 
-Analisis Tantangan:
+🔑 Kredensial
+Username: natas12
 
-Halaman web Natas 12 menyediakan sebuah form untuk mengunggah file. Setelah menganalisis fitur ini, ditemukan bahwa server memvalidasi ekstensi file. Jika file yang diunggah tidak memiliki ekstensi yang diizinkan (misalnya, .jpg, .jpeg, .png), unggahan akan ditolak.
+Password: yZdkjAYZRd3R7tq7T5kXMjMJlOIkzDeB
 
-Metode Penyelesaian:
+URL: http://natas12.natas.labs.overthewire.org
 
-Solusi untuk tantangan ini adalah dengan mengakali validasi ekstensi server. Saya menggunakan metode menyipkan kode PHP ke dalam file gambar yang valid.
+🛠️ Langkah
+Analisis Halaman: Halaman web menyediakan sebuah form untuk mengunggah file.
 
-Membuat File Gambar Berisi Kode PHP:
+Identifikasi Celah: Setelah mencoba mengunggah beberapa jenis file, diketahui bahwa server melakukan validasi ekstensi file untuk membatasi unggahan hanya pada format gambar.
 
-Saya membuat file gambar bernama malicious.jpg.
+Membuat Payload: Saya membuat file gambar JPEG bernama shell.jpg dan menyisipkan kode PHP sederhana di dalamnya. Kode ini dirancang untuk membaca file kata sandi (/etc/natas_webpass/natas13) dan menampilkannya.
 
-Menggunakan editor teks, saya menambahkan kode PHP di akhir file gambar tersebut. Kode ini akan menjalankan perintah sistem untuk membaca file kata sandi (/etc/natas_webpass/natas13).
+PHP
 
 <?php system('cat /etc/natas_webpass/natas13'); ?>
-Tindakan ini tidak merusak integritas file gambar, tetapi kode PHP tersebut tetap bisa dieksekusi oleh server web.
+Eksploitasi:
 
-Mengunggah File:
+Saya mengunggah file shell.jpg tersebut melalui form yang disediakan.
 
-Saya mengunggah file malicious.jpg yang sudah dimodifikasi melalui form yang disediakan. Karena file ini memiliki ekstensi .jpg dan merupakan file gambar yang valid, validasi server terlewati.
+Server, yang menganggap file ini sebagai gambar yang valid, menerima unggahan tersebut.
 
-Setelah unggahan berhasil, server menyimpan file di direktori tertentu. Biasanya, direktori ini memiliki nama seperti /uploads/ atau /images/.
+File tersebut disimpan di direktori uploads/.
 
-Mengeksekusi Kode PHP:
+Eksekusi Kode: Saya mengakses file yang telah diunggah melalui URL http://natas12.natas.labs.overthewire.org/uploads/shell.jpg. Karena server mengaktifkan eksekusi PHP pada file gambar di direktori tersebut, kode yang saya sisipkan dieksekusi, dan kata sandi level 13 pun ditampilkan.
 
-Saya menemukan bahwa file yang diunggah disimpan di direktori /uploads/.
-
-Kemudian, saya mengakses file tersebut melalui URL: http://natas12.natas.labs.overthewire.org/uploads/malicious.jpg.
-
-Ketika saya mengakses URL tersebut, server menjalankan kode PHP yang saya sisipkan. Outputnya adalah kata sandi untuk Natas 13.
-
-Kata Sandi untuk Natas 13:
-
+✅ Flag / Password Level 13
 yZdkjAYZRd3R7tq7T5kXMjMJlOIkzDeB
