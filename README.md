@@ -75,3 +75,38 @@ Penyelesaian: Menyuntikkan perintah ke dalam string pencarian untuk dieksekusi o
 Kerentanan: Mirip dengan level 13, tetapi dengan filter kata-kata yang lebih ketat.
 
 Penyelesaian: Menggunakan trik bypass seperti cat yang dienkode dalam heksadesimal atau menggunakan karakter wildcard seperti * untuk melewati filter dan mengeksekusi perintah.
+
+---
+
+### 🔒 Level 15 → 16: Blind SQL Injection
+
+* **Kerentanan:** Halaman ini rentan terhadap **Blind SQL Injection**. Respons server hanya memberikan pesan "user exists" atau "user does not exist" tanpa menampilkan data sensitif.
+* **Penyelesaian:** Gunakan **skrip Python** untuk menebak kata sandi, karakter per karakter. Skrip akan mengirimkan kueri yang menguji setiap huruf dan angka. Respons `user exists` mengonfirmasi tebakan yang benar, memungkinkan kita untuk membangun kata sandi lengkap.
+
+---
+
+### 🔒 Level 16 → 17: Blind Command Injection
+
+* **Kerentanan:** Input pencarian rentan terhadap **Command Injection** dengan filter yang memblokir karakter dan kata kunci tertentu.
+* **Penyelesaian:** Gunakan trik *bypass* seperti `$(...)` atau *backticks* (``) untuk menyuntikkan perintah. Skrip dapat mengukur panjang respons atau mengecek pesan *error* untuk menebak kata sandi, karakter per karakter, hingga lengkap.
+
+---
+
+### 🔒 Level 17 → 18: Time-Based Blind SQL Injection
+
+* **Kerentanan:** Kerentanan **SQL Injection** yang lebih canggih di mana tidak ada perbedaan pada respons server. Satu-satunya petunjuk adalah waktu responsnya.
+* **Penyelesaian:** Gunakan **Blind SQL Injection** berbasis waktu. Skrip Python menyuntikkan fungsi `SLEEP()` atau `BENCHMARK()` yang hanya akan dieksekusi jika tebakan karakter kata sandi benar. Waktu respons yang lebih lama menandakan tebakan yang tepat.
+
+---
+
+### 🔒 Level 18 → 19: Session ID Manipulation
+
+* **Kerentanan:** Halaman menggunakan **cookie** `PHPSESSID` untuk mengidentifikasi pengguna, dan nilainya digunakan dalam kueri SQL yang rentan.
+* **Penyelesaian:** Ubah nilai *cookie* `PHPSESSID` secara manual (misalnya, melalui Burp Suite) menjadi `19` untuk berpura-pura menjadi pengguna berikutnya (`natas19`).
+
+---
+
+### 🔒 Level 19 → 20: Session ID with Hexadecimal
+
+* **Kerentanan:** Mirip dengan level 18, tetapi nilai `PHPSESSID` dienkode dalam **heksadesimal**.
+* **Penyelesaian:** Ubah nilai heksadesimal dari `PHPSESSID` untuk menyuntikkan `UNION SELECT` atau langsung ubah nilai ID pengguna menjadi `20` untuk mendapatkan akses ke akun `natas20`.
