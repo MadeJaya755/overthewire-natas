@@ -1,0 +1,37 @@
+Natas 17 → 18
+🎯 Tujuan
+Mendapatkan password untuk level 18 dengan memanfaatkan Blind SQL Injection berbasis waktu.
+
+🔑 Kredensial
+Username: natas17
+
+Password:hPkjKYviLQctEW33QmuXL6eDVfMW4sGo
+
+URL: http://natas17.natas.labs.overthewire.org
+
+🛠️ Langkah
+Analisis Halaman: Halaman Natas 17 memiliki input untuk username saja. Namun, kali ini, pesan responsnya selalu sama (User does not exist). Ini menandakan bahwa kita tidak dapat menggunakan metode boolean-based dari level sebelumnya. Ini adalah petunjuk kuat untuk Blind SQL Injection berbasis waktu. Kerentanan ini dieksploitasi dengan mengukur waktu respons server.
+
+Mengidentifikasi Kerentanan: Saya menggunakan fungsi sleep() untuk mengonfirmasi kerentanan. Jika server mengalami penundaan (delay) saat memproses kueri, itu berarti perintah saya dieksekusi.
+
+Payload Uji: natas18" AND IF(1=1, SLEEP(5), 0) -- 
+
+Ketika saya memasukkan payload ini, server membutuhkan waktu sekitar 5 detik untuk merespons. Ini mengonfirmasi bahwa server rentan terhadap time-based SQL injection.
+
+Mengeksploitasi dengan Skrip Python: Karena prosesnya memerlukan waktu, saya menggunakan skrip Python untuk mengotomatisasi pencarian kata sandi. Skrip ini akan menebak setiap karakter satu per satu.
+
+Logika Skrip: Skrip akan mengirimkan permintaan dengan payload yang berisi tebakan karakter dan fungsi sleep().
+
+Payload: natas18" AND IF(SUBSTRING(password, [posisi], 1) = '[karakter]', SLEEP(5), 0) -- 
+
+Skrip akan mengukur waktu respons. Jika respons memakan waktu lebih dari 5 detik, itu berarti tebakan karakter benar. Jika tidak, skrip akan mencoba karakter berikutnya. Proses ini diulang hingga seluruh kata sandi ditemukan.
+
+✅ Flag / Password Level 18
+EqjHJbo7LFNb8vwhHb9s75hokh5TF0OC
+
+💡 Catatan
+Fokus utama dari level ini adalah Blind SQL Injection berbasis waktu (time-based).
+
+Metode ini digunakan ketika tidak ada perbedaan visual pada respons server (misalnya, pesan error atau pesan sukses), tetapi ada perbedaan waktu pemrosesan.
+
+Tantangan ini menunjukkan bagaimana seorang pentester dapat mengekstrak informasi sensitif dari database bahkan ketika tidak ada output langsung yang terlihat.
